@@ -2,10 +2,12 @@ import {Alert, Col, Table} from "antd";
 import Container from "../components/container";
 import {useQuery} from "@tanstack/react-query";
 import {MessagesApi} from '../api';
+import {useNavigate} from "react-router-dom";
 
 const api = new MessagesApi();
 
 const MessagesList = () => {
+  const navigate = useNavigate();
   const columns = [
     { title: 'Subject', dataIndex: 'subject', key: 'subject' },
     {
@@ -26,7 +28,16 @@ const MessagesList = () => {
     <Container>
       <Col>
         <h1>Messages</h1>
-        <Table loading={isLoading} dataSource={messages} columns={columns} rowKey="id" />
+        <Table
+          loading={isLoading}
+          dataSource={messages}
+          columns={columns}
+          rowKey="id"
+          onRow={(record) => ({
+            onClick: () => navigate(`/message/${record.id}`),
+            style: { cursor: 'pointer' },
+          })}
+        />
       </Col>
     </Container>
   )
