@@ -4,6 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import MessagesList from "./pages/MessagesList";
 import MessageDetails from "./pages/MessageDetails";
 import NotFound from "./pages/NotFound";
+import 'antd/dist/reset.css';
 
 function App() {
   return (
