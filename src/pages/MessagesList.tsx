@@ -1,13 +1,16 @@
-import {Alert, Col, Table} from "antd";
+import {Alert, Button, Col, Table} from "antd";
 import Container from "../components/container";
 import {useQuery} from "@tanstack/react-query";
 import {MessagesApi} from '../api';
 import {useNavigate} from "react-router-dom";
+import AddMessageModal from "../components/AddMessageModal";
+import {useState} from "react";
 
 const api = new MessagesApi();
 
 const MessagesList = () => {
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const columns = [
     { title: 'Subject', dataIndex: 'subject', key: 'subject' },
     {
@@ -28,6 +31,13 @@ const MessagesList = () => {
     <Container>
       <Col>
         <h1>Messages</h1>
+        <Button type="primary" onClick={() => setIsModalOpen(true)}>
+          Add Message
+        </Button>
+        <AddMessageModal
+          open={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
         <Table
           loading={isLoading}
           dataSource={messages}
